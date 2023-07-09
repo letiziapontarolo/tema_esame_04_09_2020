@@ -51,10 +51,38 @@ public class FXMLController {
     @FXML
     void doCreaGrafo(ActionEvent event) {
     	
+txtResult.clear();
+    	
+    	String input = txtRank.getText();
+    	double rank = 0;
+    	if (input == "") {
+    	 txtResult.setText("Perfavore inserisci un rank!\n");
+    	 return;
+    	 }
+    	try {
+    	 rank = Double.parseDouble(input);
+    	 } catch (NumberFormatException e) {
+    	 e.printStackTrace();
+    	 return;
+    	 }
+    	if (rank < 0) {
+    	 txtResult.appendText("Perfavore inserisci un rank positivo!\n");
+    	 return;
+    	 }
+    	
+    	this.model.creaGrafo(rank);
+    	
+    	txtResult.appendText("Grafo creato!\n");
+    	txtResult.appendText("#VERTICI: " + this.model.numeroVertici() + "\n");
+    	txtResult.appendText("#ARCHI: " + this.model.numeroArchi() + "\n");
+
+    	
     }
 
     @FXML
     void doGradoMax(ActionEvent event) {
+    	
+    	txtResult.appendText(this.model.gradoMassimo());
     	
     }
 
